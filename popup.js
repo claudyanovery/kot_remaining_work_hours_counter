@@ -31,17 +31,20 @@ function removeChars (text) {
 }
 
 function noData() {
-    no_data_message.innerHTML = "There are no data";
+    no_data_message.innerHTML = "There are no data for today";
     total_worked_hours_hh.innerHTML = "0"
     total_worked_hours_mm.innerHTML = "0"
-    calculated_working_hours_hh.innerHTML = "0"
-    calculated_working_hours_mm.innerHTML = "0"
+
+    remaining_working_hours_hh.innerHTML = "0"
+    remaining_working_hours_mm.innerHTML = "0"
+
+    ot_time_hh.innerHTML = "0"
+    ot_time_mm.innerHTML = "0"
     
     total_rest_time_hh.innerHTML = "0"
     total_rest_time_mm.innerHTML = "0"
 
     lunch_mins_left.innerHTML = "0";
-    lunch_mins_left.innerHTML = "0"
 }
 
 function msConverter(time) {

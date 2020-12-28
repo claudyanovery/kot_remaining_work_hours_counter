@@ -6,9 +6,7 @@ function removeChars (text) {
 }
 chrome.storage.sync.get('date_today', (data) => {
     document.querySelectorAll("p").forEach((p) => {
-        // if (removeChars(p.innerText)[0] == data.date_today) {
-        if (removeChars(p.innerText)[0] == "12/02（水）") {
-        // if (removeChars(p.innerText)[0] == "12/21（月）") {
+        if (removeChars(p.innerText)[0] == data.date_today) {
             
             p.parentNode.parentNode.querySelectorAll(".start_end_timerecord, .rest_timerecord").forEach((record) => {
                 rawRecords[record.dataset.htSortIndex] = record.innerText;
