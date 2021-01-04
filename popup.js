@@ -19,6 +19,7 @@ var rest_time = 3600000;
 var working_hours = 28800000;
 var records = {};
 let time_now = d.getHours() + ":" + d.getMinutes();
+let time_now_with_zero = d.getMinutes() < 10 ? `${d.getHours()} : 0${d.getMinutes()}` : d.getHours() + ":" + d.getMinutes()
 
 function removeChars (text) {
     if (text !== "") {
@@ -124,7 +125,7 @@ chrome.storage.sync.get(null, (data) => {
     initialCalculation(records);
     var final_records = finalCalculation(initialCalculation(records));
 
-    date_today.innerHTML = `${data.date_today} ${time_now}`;
+    date_today.innerHTML = `${data.date_today} ${time_now_with_zero}`;
 
     var total_worked_hours = final_records["total_work_time"] - final_records["total_rest_time"]
     
