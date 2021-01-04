@@ -28,7 +28,9 @@ const getJapaneseDay = (date) => {
 
 let d = new Date();
 let day = getJapaneseDay(d.getDay());
-let today = `${d.getMonth() + 1}/${d.getDate()}${jpDay}`;
+let month_now = (d.getMonth() + 1) < 10 ? `0${d.getMonth() + 1}` : `${d.getMonth() + 1}`;
+let date_now = d.getDate() < 10 ? `0${d.getDate()}` : `${d.getDate()}`;
+let today = month_now + "/" + date_now + jpDay;
 
 chrome.runtime.onInstalled.addListener(function() {
     chrome.storage.sync.set({date_today: today.toString()}, function() {

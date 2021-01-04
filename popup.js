@@ -93,7 +93,6 @@ function initialCalculation (records) {
             }
         }
     }
-    console.log(working_time);
     return {working_time, rest_time};
 }
 
@@ -125,7 +124,7 @@ chrome.storage.sync.get(null, (data) => {
     initialCalculation(records);
     var final_records = finalCalculation(initialCalculation(records));
 
-    date_today.innerHTML = data.date_today;
+    date_today.innerHTML = `${data.date_today} ${time_now}`;
 
     var total_worked_hours = final_records["total_work_time"] - final_records["total_rest_time"]
     
