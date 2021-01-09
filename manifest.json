@@ -1,6 +1,6 @@
 {
     "name": "KOT Remaining Work Hours Counter",
-    "version": "1.0",
+    "version": "1.01",
     "description": "Extension to check the remaining work hours",
     "permissions": ["declarativeContent", "storage"],
     "background": {
