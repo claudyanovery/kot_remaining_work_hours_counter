@@ -38,12 +38,12 @@ function removeChars (text) {
     return tmp.split(/\s+/).filter((el) => { return el; })
 }
 
-document.querySelectorAll("p").forEach((p) => {           
+document.querySelectorAll("p").forEach((p) => {
     if (removeChars(p.innerText)[0] == today.toString()) {            
         p.parentNode.parentNode.querySelectorAll(".start_end_timerecord, .rest_timerecord").forEach((record) => {
             rawRecords[record.dataset.htSortIndex] = record.innerText;
         })
-        chrome.runtime.sendMessage({isLoaded: true, rawRecords: rawRecords}, (response) => {
+        chrome.runtime.sendMessage({isLoaded: true, rawRecords: rawRecords, date_today: today.toString()}, (response) => {
             console.log(response);
         })
     }

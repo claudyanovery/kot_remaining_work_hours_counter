@@ -31,8 +31,11 @@ function removeChars (text) {
     
 }
 
-function noData() {
+function noData(date_today) {
     no_data_message.innerHTML = "There are no data for today";
+    
+    date_today.innerHTML = `${date_today} ${time_now_with_zero}`;
+
     total_worked_hours_hh.innerHTML = "0"
     total_worked_hours_mm.innerHTML = "0"
 
@@ -119,7 +122,7 @@ function finalCalculation(records) {
 
 chrome.storage.sync.get(null, (data) => {
     if (data.rawRecords["START_TIMERECORD"] == "" && data.rawRecords["END_TIMERECORD"] == "" && data.rawRecords["REST_START_TIMERECORD"] == "" && data.rawRecords["REST_END_TIMERECORD"] == "") {
-        return noData();
+        return noData(data.date_today);
     }
     createRecords(data);
     initialCalculation(records);
