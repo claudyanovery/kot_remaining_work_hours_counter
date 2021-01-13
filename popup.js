@@ -97,18 +97,22 @@ function initialCalculation (records) {
             }
         }
     }
+
     return {working_time, rest_time};
 }
 
 function finalCalculation(records) {
     var total_rest_time = 0;
     var total_work_time = 0;
+    var lunch_time;
     
     if (records['rest_time'].length > 0) {
         for (var x =0; x < records['rest_time'].length; x++) {
             total_rest_time += records['rest_time'][x];
         }
-        var lunch_time = rest_time - total_rest_time;
+        lunch_time = rest_time - total_rest_time;
+    } else {
+        lunch_time = rest_time;
     }
 
     if (records['working_time'].length > 0) {
@@ -156,7 +160,11 @@ chrome.storage.sync.get(null, (data) => {
     if (final_records["lunch_time"] <= 0) {
         lunch_mins_left.innerHTML = "0";
     } else {
-        lunch_mins_left.innerHTML = msConverter(final_records["lunch_time"])["mm"];
+        if (final_records["lunch_time"] === rest_time) {
+            lunch_mins_left.innerHTML = 60;
+        } else {
+            lunch_mins_left.innerHTML = msConverter(final_records["lunch_time"])["mm"];
+        }
         rest_time_warning.innerHTML = "Please make sure to take an hour break";
     }
 
