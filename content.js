@@ -1,8 +1,8 @@
 var rawRecords = {};
 let jpDay;
 
-const getJapaneseDay = (date) => {
-  switch (date) {
+const getJapaneseDay = (day) => {
+  switch (day) {
     case 1:
       jpDay = "（月）";
       break;
@@ -21,7 +21,7 @@ const getJapaneseDay = (date) => {
     case 6:
       jpDay = "（土）";
       break;
-    case 7:
+    default:
       jpDay = "（日）";
       break;
   }
@@ -35,10 +35,11 @@ let date_now = d.getDate() < 10 ? `0${d.getDate()}` : `${d.getDate()}`;
 let today = month_now + "/" + date_now + jpDay;
 
 function removeChars(text) {
-  var tmp = text.replace(/[C]/g, "");
-  return tmp.split(/\s+/).filter((el) => {
-    return el;
-  });
+  return text.substr(-5);
+  // var tmp = text.replace(/[C]/g, "");
+  // return tmp.split(/\s+/).filter((el) => {
+  //   return el;
+  // });
 }
 
 document.querySelectorAll("p").forEach((p) => {
@@ -48,11 +49,12 @@ document.querySelectorAll("p").forEach((p) => {
       .forEach((record) => {
         rawRecords[record.dataset.htSortIndex] = record.innerText;
       });
-    chrome.runtime.sendMessage(
-      { isLoaded: true, rawRecords: rawRecords, date_today: today.toString() },
-      (response) => {
-        console.log(response);
-      }
-    );
   }
 });
+
+chrome.runtime.sendMessage(
+  { isLoaded: true, rawRecords: rawRecords, date_today: today.toString() },
+  (response) => {
+    console.log(response);
+  }
+);
