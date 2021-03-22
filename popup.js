@@ -27,13 +27,12 @@ let time_now_with_zero =
     ? `${d.getHours()} : 0${d.getMinutes()}`
     : d.getHours() + ":" + d.getMinutes();
 
-function removeChars(text) {
+function removeCharsFromTime(text) {
   if (text !== "") {
-    return text.substr(-5);
-    // var tmp = text.replace(/[C]/g, "");
-    // return tmp.split(/\s+/).filter((el) => {
-    //   return el;
-    // });
+    var tmp = text.replace(/[C,認,C(携帯),位置(携帯),申]/g, "");
+    return tmp.split(/\s+/).filter((el) => {
+      return el;
+    });
   } else {
     return text;
   }
@@ -72,10 +71,22 @@ function msConverter(time) {
 }
 
 function createRecords(data) {
-  records["start_time"] = removeChars(data.rawRecords["START_TIMERECORD"]);
-  records["end_time"] = removeChars(data.rawRecords["END_TIMERECORD"]);
-  records["rest_start"] = removeChars(data.rawRecords["REST_START_TIMERECORD"]);
-  records["rest_end"] = removeChars(data.rawRecords["REST_END_TIMERECORD"]);
+  records["start_time"] = removeCharsFromTime(
+    data.rawRecords["START_TIMERECORD"]
+  );
+  records["end_time"] = removeCharsFromTime(data.rawRecords["END_TIMERECORD"]);
+  records["rest_start"] = removeCharsFromTime(
+    data.rawRecords["REST_START_TIMERECORD"]
+  );
+  records["rest_end"] = removeCharsFromTime(
+    data.rawRecords["REST_END_TIMERECORD"]
+  );
+
+  // console.log(data.rawRecords["START_TIMERECORD"]);
+  // console.log(records["start_time"]);
+  // console.log(records["end_time"]);
+  // console.log(records["rest_start"]);
+  // console.log(records["rest_end"]);
 }
 
 function timeDiff(str_start_time, str_end_time) {
@@ -91,6 +102,8 @@ function initialCalculation(records) {
   var rest_time = [];
   for (const record in records) {
     // console.log(`${record}: ${records[record]}`);
+    console.log("----");
+    console.log(records[record].length);
     for (var i = 0; i < records[record].length; i++) {
       if (records["start_time"][i] && records["end_time"][i]) {
         working_time[i] = timeDiff(
@@ -98,6 +111,9 @@ function initialCalculation(records) {
           records["end_time"][i].split(":")
         );
       } else if (records["start_time"][i]) {
+        console.log(records["start_time"][i]);
+        console.log(records["start_time"][i].split(":"));
+        // console.log(time_now.split(":"));
         working_time[i] = timeDiff(
           records["start_time"][i].split(":"),
           time_now.split(":")
@@ -117,7 +133,7 @@ function initialCalculation(records) {
       }
     }
   }
-
+  console.log(working_time);
   return { working_time, rest_time };
 }
 

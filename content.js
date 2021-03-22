@@ -35,11 +35,10 @@ let date_now = d.getDate() < 10 ? `0${d.getDate()}` : `${d.getDate()}`;
 let today = month_now + "/" + date_now + jpDay;
 
 function removeChars(text) {
-  return text.substr(-5);
-  // var tmp = text.replace(/[C]/g, "");
-  // return tmp.split(/\s+/).filter((el) => {
-  //   return el;
-  // });
+  var tmp = text.replace(/[C,認,C(携帯),位置(携帯),申]/g, "");
+  return tmp.split(/\s+/).filter((el) => {
+    return el;
+  });
 }
 
 document.querySelectorAll("p").forEach((p) => {
